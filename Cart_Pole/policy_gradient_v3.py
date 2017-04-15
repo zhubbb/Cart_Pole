@@ -97,7 +97,10 @@ for ep in range(100000000):
     gamma_list=np.cumprod(gamma_list)
     gamma_list=np.vstack(gamma_list)
 
-    G_states = np.vstack(G_s0 - np.cumsum([0]+ep_rewards[:-1]))*gamma_list
+    #G_states = np.vstack(G_s0 - np.cumsum([0]+ep_rewards[:-1])) *gamma_list
+    #Notice we cannot remove the discounting factor gamma^t from the G, because these gamma^t will help to reduce the value of alpha when approaching closure
+    
+    G_states = np.vstack(G_s0 - np.cumsum([0]+ep_rewards[:-1]))
     #G_states = discount_rewards(np.vstack(ep_rewards))
     #print("G ", G_states[2], G_states2[2])
     #assert(G_states[2] == G_states2[2])
